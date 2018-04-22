@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="./jquery.min.js">
+  </script>
+
+
+  <title>Exit</title>
+  <style media="screen">
+    body {
+      background: black;
+    }
+
+    .container {
+      margin-top: 2em;
+      padding-top: 2em;
+      padding-right: 2em;
+      padding-left: 2em;
+      padding-bottom: 5em;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-auto-rows: minmax(250px, 0);
+      grid-gap: 2em;
+    }
+
+    .artist {
+
+      display: flex;
+      vertical-align: center;
+      justify-content: center;
+      background-color: yellow;
+      border-radius: 2%;
+
+    }
+
+    .container:hover>div {
+      filter: blur(4px);
+      transition: all 0.3s ease;
+    }
+
+    .container:hover>div:hover {
+      filter: none;
+      cursor: pointer;
+      transform: scale(1.2);
+      overflow: hidden;
+      transition: all 0.1s ease;
+
+    }
+
+    h3 {
+      display: flex;
+      align-self: flex-end;
+      position: relative;
+      top: 50px;
+      color: grey;
+    }
+
+
+
+
+    #john {
+      background-image: url("./resources/johnMayer.jpeg");
+      background-position: center;
+      background-size: 300px 300px;
+      color: grey;
+    }
+
+    #sam {
+      background-image: url("./resources/samSmith.jpg");
+      background-position: center;
+      background-size: 300px 300px;
+
+    }
+
+    #charlie {
+      background-image: url("./resources/charliePuth.jpg");
+      background-position: center;
+      background-size: 300px 300px;
+    }
+
+    #lofi {
+      background-image: url("./resources/lofi.jpg");
+      background-position: center;
+      background-size: 500px 300px;
+    }
+
+    #tseries {
+      background-image: url("./resources/tseries.jpg");
+      background-position: center;
+      background-size: 500px 300px;
+    }
+
+
+    audio {
+      float: right;
+    }
+
+
+
+
+
+    @media screen and (max-width:890px) {
+      h3 {
+        font-size: 1em;
+      }
+    }
+
+    @media screen and (max-width:735px) {
+      h3 {
+        display: none;
+      }
+    }
+
+
+    .container-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+
+    .audioControls {
+
+
+      height: 200px;
+      width: 200px;
+    }
+
+    img {
+      height: 300px;
+      width: 170px;
+      position: relative;
+      left: 180px;
+      top: -40px;
+    }
+
+    .invisible {
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="artist" id="john">
+      <h3>John Mayer</h3>
+    </div>
+    <div class="artist" id="sam">
+      <h3>Sam Smith</h3>
+    </div>
+    <div class="artist" id="charlie">
+      <h3>Charlie Puth</h3>
+    </div>
+    <div class="artist" id="lofi">
+      <h3>L o  F i</h3>
+    </div>
+    <div class="artist" id="tseries">
+      <h3>T-Series</h3>
+    </div>
+  </div>
+
+
+  <div class="container-two">
+
+
+    <div class="image">
+      <img src="./resources/cryingGirl.png" alt="">
+    </div>
+
+    <div class="audioControls invisible">
+      <button type="button" name="play">Play</button>
+      <button type="button" name="pause">Pause</button>
+      <button type="button" name="play">Next</button>
+      <button type="button" name="play">Previous</button>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+</body>
+
+<script type="text/javascript">
+  var playlist = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+  var ext = '.flac';
+  var dir = './resources/songs/';
+  var idx = 0;
+  var song = new Audio();
+  var directory = [];
+
+
+
+
+
+  function playArtist(artistName) {
+    for (var i = 0; i < 12; i++) {
+      directory.push(dir + artistName + '/' + playlist[i] + ext);
+    }
+    song.src = directory[idx];
+    song.play();
+
+    function nextSong() {
+      if (idx < 13) {
+        if (song.ended){
+          song.src = directory[idx + 1];
+          song.play();
+        }
+      }
+      else {
+        alert("Playlist finished! Select new playlist");
+      }
+    }
+
+
+  nextSong();
+  setInterval(nextSong, 10000);
+
+}
+
+
+  $(".artist").click(function() {
+    artistName = event.target.id;
+    playArtist(artistName);
+  })
+</script>
+
+
+
+</html>
